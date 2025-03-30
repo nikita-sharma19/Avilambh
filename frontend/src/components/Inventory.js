@@ -140,6 +140,12 @@ const Inventory = () => {
               >
                 INVENTORY
               </Link>
+               <Link
+                 to="/production"
+                 className="block text-gray-300 hover:text-white"
+                >
+                  PRODUCTION
+                </Link>
             </nav>
           </div>
         </aside>
@@ -173,14 +179,14 @@ const Inventory = () => {
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
                     <button
-                      className="px-4 py-1 bg-[#ff2188] rounded-md text-white outline-none"
+                      className="px-4 py-1 bg-gray-500 rounded-md text-white outline-none"
                       onClick={() => openModal(item)}
                     >
                       update
                     </button>
                     <button
                       type="button"
-                      className="px-4 py-1 ml-2 bg-red-500 rounded-md text-white outline-none"
+                      className="px-4 py-1 ml-2 bg-gray-500 rounded-md text-white outline-none"
                       onClick={() => deleteItem(item._id)}
                     >
                       Delete
@@ -192,7 +198,7 @@ const Inventory = () => {
           </table>
 
           <button
-            className="absolute bottom-6 right-32 bg-blue-500 text-white px-6 py-1 rounded"
+            className="absolute bottom-6 right-32 bg-gray-500 text-white px-6 py-1 rounded"
             onClick={() => openAddModal()}
           >
             Add

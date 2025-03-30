@@ -57,6 +57,12 @@ const Saftey = () => {
               >
                 INVENTORY
               </Link>
+              <Link
+                 to="/production"
+                 className="block text-gray-300 hover:text-white"
+              >
+                PRODUCTION
+              </Link>
             </nav>
           </div>
         </aside>
@@ -64,7 +70,7 @@ const Saftey = () => {
       <div className="w-[80vw] h-[85vh] fixed  top-0 right-0">
         <div className="p-4 bg-gray-200">
           <div className="p-4 w-5/6 h-[75vh]  bg-gray-500 mx-auto" classDate="p-4">
-            <h1 className="text-white text-xl">Production Record</h1>
+            <h1 className="text-white text-xl">Safety Record</h1>
             <div className="h-4/5 overflow-y-auto scrollbar-hide">
               <table className=" p-3 min-w-full bg-white">
                 <thead className="bg-gray-400">
@@ -84,7 +90,7 @@ const Saftey = () => {
                         {item.scheduled_date.slice(0, 10)}
                       </td>
                       <td className="border p-2 ">
-                        <button className="px-4 py-1 bg-red-500 rounded-md text-white outline-none ">
+                        <button className="px-4 py-1 bg-gray-600 rounded-md text-white outline-none ">
                           view
                         </button>
                       </td>

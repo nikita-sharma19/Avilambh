@@ -155,6 +155,12 @@ const Transport = () => {
               >
                 INVENTORY
               </Link>
+              <Link
+                to="/production"
+                className="block text-gray-300 hover:text-white"
+              >
+                PRODUCTION
+              </Link>
             </nav>
           </div>
         </aside>
@@ -228,21 +234,21 @@ const Transport = () => {
                     <td className="flex">
                       <button
                         type="button"
-                        className="px-4 py-1 ml-2 bg-red-500 rounded-md text-white outline-none"
+                        className="px-4 py-1 ml-2 bg-gray-600 rounded-md text-white outline-none"
                         onClick={() => deleteTransport(item._id)}
                       >
                         Delete
                       </button>
                       <button
                         type="button"
-                        className="px-4 py-1 ml-2 bg-yellow-600 rounded-md text-white outline-none"
+                        className="px-4 py-1 ml-2 bg-gray-500 rounded-md text-white outline-none"
                         onClick={() => openModal(item)}
                       >
                         Edit
                       </button>
                       <button
                         type="button"
-                        className="px-4 py-1 ml-2 bg-green-500 rounded-md text-white outline-none mr-4"
+                        className="px-4 py-1 ml-2 bg-gray-500 rounded-md text-white outline-none mr-4"
                         onClick={() => compTransport(item._id)}
                       >
                         done
@@ -254,7 +260,7 @@ const Transport = () => {
             </table>
           </div>
           <button
-            className="absolute bottom-3 right-24 bg-blue-500 text-white px-6 py-1 rounded"
+            className="absolute bottom-3 right-24 bg-gray-500 text-white px-6 py-1 rounded"
             onClick={() => openAddModal()}
           >
             Add

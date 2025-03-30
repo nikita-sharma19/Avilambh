@@ -9,6 +9,7 @@ const Inventory = require("./model/inventorySchema");
 const Counter = require("./model/counterSchema");
 const { isGuest } = require("./middleware/auth");
 const Transport = require("./model/transportSchema.js");
+const Production = require("./model/productionSchema.js")
 const SMP = require("./model/smpSchema.js");
 const Drills = require("./model/trainingSchema.js");
 
@@ -46,13 +47,85 @@ app.get("/", (req, res) => {
 });
 
 
-
+//REPORTS
+app.get("/reports", isGuest, async (req, res) => {
+  const items = await SMP.find();
+  res.send(items);
+});
+app.post("/reports/addItem", async (req, res) => {
+  try {
+    await SMP.insertOne(req.body);
+    res.status(201).send({ message: "Report saved successfully!" });
+    console.log("Report saved successfully!");
+  } catch (error) {
+    res.status(500).send({ error: "Error saving report" });
+  }
+});
 
 //SMP REPORT
 app.get("/smpReport", async (req, res) => {
   const items = await SMP.find();
   res.send(items);
 });
+
+//Smp Update
+app.put("/smpReport/update/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { report_id, mine_id, status, date, inspected_by } = req.body;
+    console.log(req.body);
+    const updatedItem = await SMP.findByIdAndUpdate(id, {
+      report_id,
+      mine_id,
+      status,
+      date,
+      inspected_by
+    });
+
+    res.json(updatedItem);
+  } catch (error) {
+    res.status(500).json({ error: "Error updating item" });
+  }
+});
+// SMP Add
+// app.post("/smpReport/addItem", async (req, res) => {
+//   try {
+//     const newId = await getNextId("smpId");
+//     const newItem = {
+//       report_id: `SID${newId}`,
+//       mine_id: req.body.mine_id,
+//       status: req.body.status,
+//       date: req.body.date,
+//       inspected_by: req.body.inspected_by
+//     };
+//     console.log(newItem)
+//     await SMP.insertOne(newItem);
+//     res.status(201).send({ message: "New item added" });
+//     console.log("Item added");
+//   } catch (error) {
+//     res.status(500).send({ error: "Error" });
+//   }
+// });
+// SMP Delete
+app.delete("/smpReport/delete/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await SMP.findByIdAndDelete(id);
+    res.json({ message: "Item deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Error deleting item" });
+  }
+});
+
+
+// Production
+app.get("/production", async (req, res) => {
+  const items = await Production.find();
+  res.send(items);
+});
+
+
+// Inventory
 app.post("/inventory/addItem", async (req, res) => {
   try {
     const newId = await getNextId("smpId");
@@ -198,29 +271,6 @@ app.put("/transport/update/:id", async (req, res) => {
     res.status(500).json({ error: "Error updating item" });
   }
 });
-
-
-
-
-
-//REPORTS
-app.get("/reports", isGuest, async (req, res) => {
-  const items = await SMP.find();
-  res.send(items);
-});
-app.post("/reports/addItem", async (req, res) => {
-  try {
-    await SMP.insertOne(req.body);
-    res.status(201).send({ message: "Report saved successfully!" });
-    console.log("Report saved successfully!");
-  } catch (error) {
-    res.status(500).send({ error: "Error saving report" });
-  }
-});
-
-
-
-
 
 //START SERVER
 app.listen(5000, () => {

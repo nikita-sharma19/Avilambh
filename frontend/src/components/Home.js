@@ -2,6 +2,8 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
+import Map from "./Map";
+// import Scheduletable from "./Scheduletable";
 
 const Home = () => {
   return (
@@ -45,11 +47,20 @@ const Home = () => {
                 >
                   INVENTORY
                 </Link>
+                <Link
+                  to="/production"
+                  className="block text-gray-300 hover:text-white"
+                >
+                  PRODUCTION
+                </Link>
               </nav>
             </div>
           </aside>
         </div>
-        <div className="w-[80vw] h-[85vh] fixed -z-10 top-0 right-0">HOME</div>
+        <div className="w-[80vw] h-[85vh] fixed -z-10 top-0 right-0">HOME
+          <Map/>
+          {/* <Scheduletable/> */}
+        </div>
         <Footer />
       </>
     </div>

@@ -63,12 +63,13 @@ app.post("/reports/addItem", async (req, res) => {
 });
 
 //SMP REPORT
+
 app.get("/smpReport", async (req, res) => {
   const items = await SMP.find();
   res.send(items);
 });
 
-//Smp Update
+//SMP Update
 app.put("/smpReport/update/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -88,24 +89,24 @@ app.put("/smpReport/update/:id", async (req, res) => {
   }
 });
 // SMP Add
-// app.post("/smpReport/addItem", async (req, res) => {
-//   try {
-//     const newId = await getNextId("smpId");
-//     const newItem = {
-//       report_id: `SID${newId}`,
-//       mine_id: req.body.mine_id,
-//       status: req.body.status,
-//       date: req.body.date,
-//       inspected_by: req.body.inspected_by
-//     };
-//     console.log(newItem)
-//     await SMP.insertOne(newItem);
-//     res.status(201).send({ message: "New item added" });
-//     console.log("Item added");
-//   } catch (error) {
-//     res.status(500).send({ error: "Error" });
-//   }
-// });
+app.post("/smpReport/addItem", async (req, res) => {
+  try {
+    const newId = await getNextId("smpId");
+    const newItem = {
+      report_id: `SID${newId}`,
+      mine_id: req.body.mine_id,
+      status: req.body.status,
+      date: req.body.date,
+      inspected_by: req.body.inspected_by
+    };
+    console.log(newItem)
+    await SMP.insertOne(newItem);
+    res.status(201).send({ message: "New item added" });
+    console.log("Item added");
+  } catch (error) {
+    res.status(500).send({ error: "Error" });
+  }
+});
 // SMP Delete
 app.delete("/smpReport/delete/:id", async (req, res) => {
   try {
@@ -123,8 +124,36 @@ app.get("/production", async (req, res) => {
   const items = await Production.find();
   res.send(items);
 });
+// Production Delete
+app.delete("/production/delete/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Production.findByIdAndDelete(id);
+    res.json({ message: "Item deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Error deleting item" });
+  }
+});
+// Production Update
+app.put("/production/update/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { Production_Id, Mine_Id, Date, Quality, Quantity } = req.body;
+    console.log(req.body);
+    const updatedItem = await Production.findByIdAndUpdate(id, {
+      Production_Id,
+      Mine_Id,
+      Date,
+      Quality,
+      Quantity
+    });
 
-
+    res.json(updatedItem);
+  } catch (error) {
+    res.status(500).json({ error: "Error updating item" });
+  }
+});
+  
 // Inventory
 app.post("/inventory/addItem", async (req, res) => {
   try {

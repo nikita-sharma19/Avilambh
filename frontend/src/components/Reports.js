@@ -28,8 +28,9 @@ const Reports = () => {
     });
 
     // Handle SMP View 
-  //  const handleView = (e) => {
-  //   setNewItem({ ...newItem, [e.target.name]: e.target.value });
+   const handleView = (e) => {
+    setNewItem({ ...newItem, [e.target.name]: e.target.value });
+   }
 
   //Handle input change fr update
   const handleUpdate = (e) => {
@@ -111,6 +112,20 @@ const Reports = () => {
       console.error("Error updating item:", error);
     }
   };
+
+  const addSMP = async (e) => {
+      e.preventDefault();
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/smpReport/addItem",
+          newItem
+        );
+        navigate(0);
+        console.log("Data saved:", response.data);
+      } catch (error) {
+        alert("Error submitting form");
+      }
+    };
 
   const deleteItem = async (id) => {
     try {
@@ -234,7 +249,7 @@ const Reports = () => {
             </tbody>
           </table>
 
-          <button onClick={()=>navigate('/safety')}
+          <button
             className="absolute bottom-6 right-32 bg-blue-500 text-white px-6 py-1 rounded"
             
           >
@@ -324,7 +339,7 @@ const Reports = () => {
                 type="text"
                 className="w-full p-2 border rounded mb-4"
                 value={newItem.report_id}
-                // onChange={handleView}
+                onChange={handleView}
               />
               <label className="block mb-2">Mine Id</label>
               <input
@@ -332,7 +347,7 @@ const Reports = () => {
                 type="text"
                 className="w-full p-2 border rounded mb-4"
                 value={newItem.mine_id}
-                // onChange={handleView}
+                onChange={handleView}
               />
               <label className="block mb-2">Status</label>
               <input
@@ -340,7 +355,7 @@ const Reports = () => {
                 type="text"
                 className="w-full p-2 border rounded mb-4"
                 value={newItem.status}
-                // onChange={handleView}
+                onChange={handleView}
               />
               <label className="block mb-2">Date</label>
               <input
@@ -348,7 +363,7 @@ const Reports = () => {
                 type="date"
                 className="w-full p-2 border rounded mb-4"
                 value={newItem.date}
-                // onChange={handleView}
+                onChange={handleView}
               />
               <label className="block mb-2">Inspected By</label>
               <input
@@ -356,7 +371,7 @@ const Reports = () => {
                 type="text"
                 className="w-full p-2 border rounded mb-4"
                 value={newItem.inspected_by}
-                // onChange={handleView}
+                onChange={handleView}
               />
               <div className="flex justify-end space-x-2">
                 <button
@@ -369,7 +384,7 @@ const Reports = () => {
                 <button
                   type="button"
                   className="px-4 py-2 bg-green-600 rounded-md text-white"
-                  // onClick={addInventory}
+                  onClick={ addSMP}
                 >
                   Add
                 </button>
